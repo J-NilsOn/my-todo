@@ -1,14 +1,16 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { initNoteAC } from '../../redux/util/actionCreators';
+import { counterStatusAC, initNoteAC } from '../../redux/util/actionCreators';
 import Note from '../Note/Note';
 
 function List() {
 
   const dispatch = useDispatch();
-  const { notes } = useSelector(store => store);
+  const { notes, status } = useSelector(store => store);
 
   useEffect(() => { dispatch(initNoteAC()) }, [])
+
+  useEffect(() => { dispatch(counterStatusAC()) }, [notes])
 
   return (
     notes && notes.map(note =>
