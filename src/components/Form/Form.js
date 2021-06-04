@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { addNoteAC } from '../../redux/util/actionCreators';
 import FormVeiw from '../FormVeiw/FormVeiw';
 import { v4 as uuidv4 } from 'uuid';
+import InputForm from '../InputForm/InputForm';
 
 function Form() {
 
@@ -21,12 +22,11 @@ function Form() {
     <div >
       <FormVeiw onSubmit={AddNote}>
         <div className="mb-3">
-          <input
+          <InputForm
             type="text"
             className="form-control"
             aria-describedby="emailHelp"
             name="formControl"
-            style={{ width: "75%", margin: "0 auto" }}
             placeholder="Input Yours Note"/>
         </div>
         <button type="submit" className="btn btn-primary">Add Note</button>
