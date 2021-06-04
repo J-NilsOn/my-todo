@@ -19,10 +19,10 @@ const reducer = (store = initStore, action) => {
       return { ...store, notes: [...store.notes, action.payload] }
 
     case DELETE_NOTE:
-      return { ...store, notes: store.notes.filter((el) => el.id !== Number(action.payload)) };
+      return { ...store, notes: store.notes.filter((el) => el.id !== action.payload) };
 
     case CHANGE_STATUS_NOTE:
-      return { ...store, notes: store.notes.map((el) => el.id === Number(action.payload) ? { ...el, status: !el.status } : el) };
+      return { ...store, notes: store.notes.map((el) => el.id === action.payload ? { ...el, status: !el.status } : el) };
 
     case COUNTER_STATUS:
       const doneCounter = store.notes.reduce((accumulator, el) => accumulator + (el.status ? 1 : 0), 0);
