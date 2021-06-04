@@ -1,48 +1,32 @@
-import { useRef } from "react";
+import React from 'react';
 import { useDispatch } from "react-redux";
 import { changeStatusAC, deleteNoteAC } from "../../redux/util/actionCreators";
+import WrapperNote from "../WrapperNote/WrapperNote";
+import NoteView from '../NoteView/NoteView';
+import ButtonDel from "../ButtonDel/ButtonDel";
 
-function Note({ note: {id, text, status} }) {
 
-  const divNote = useRef();
+function Note({ note: { id, text, status } }) {
+
   const dispatch = useDispatch();
 
-  function DeleteNote(){
-    dispatch(deleteNoteAC(divNote.current.id));
+  function DeleteNote(e) {
+    dispatch(deleteNoteAC(e.target.previousSibling.id));
   }
 
-  function changeStatus(){
-    // console.log(divNote.current.id, 'To Notes ID');
-    dispatch(changeStatusAC(divNote.current.id));
+  function changeStatus(e) {
+    dispatch(changeStatusAC(e.target.id));
   }
-
-  // console.log(divNote);
-  // console.log(111); 
-  if(divNote !== 'undefined'){ console.dir(divNote.current?.id , "divNote.current.id"); }
-  id && console.log(id, 'ID');
 
   return (
-    <>
-      <div 
-        onClick={changeStatus}
-        ref={divNote}
-        id={id}
-        className={status ? "alert alert-secondary text-decoration-line-through" : "alert alert-info"}
-        role="alert" 
-        style={
-          {
-          maxWidth: "100%",
-          verticalAlign: "middle",
-          display: "inline-block",
-          margin: "0 auto",
-          borderRadius: "5px",
-          textAlign: "left"
-        }}
-        >
+    <WrapperNote>
+      <NoteView onClick={changeStatus} id={id}
+        className={status ? "alert alert-secondary text-decoration-line-through" : "alert alert-info"}>
         {text}
-      </div>
-      <button onClick={DeleteNote} type="button" name="del-button" className="btn btn-danger" style={{ display: "inline-block", padding: "1rem" }}>Delete</button>
-    </>
+      </NoteView>
+      <ButtonDel onClick={DeleteNote} type="button" name="del-button" className="btn btn-danger">Del
+      </ButtonDel>
+    </WrapperNote>
   );
 };
 
